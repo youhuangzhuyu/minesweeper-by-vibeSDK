@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEO-MINESWEEPER // TERMINAL_v1.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --terminal-green: #00ff41;
+            --terminal-dim: #003b00;
+            --terminal-bg: #0a0f0d;
+        }
+        body {
+            background-color: var(--terminal-bg);
+            color: var(--terminal-green);
+            font-family: 'JetBrains Mono', monospace;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 101;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 255, 65, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scanline 10s linear infinite;
+        }
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: -100px; }
+        }
+        .glow {
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.7);
+        }
+        .cell {
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cell:hover {
+            background-color: rgba(0, 255, 65, 0.1);
+        }
+        .cell-revealed {
+            background-color: rgba(0, 255, 65, 0.05);
+        }
+        /* Custom scrollbar for game board container */
+        .game-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .game-scroll::-webkit-scrollbar-track {
+            background: #0a0f0d;
+        }
+        .game-scroll::-webkit-scrollbar-thumb {
+            background: #003b00;
+            border-radius: 4px;
+        }
+        .game-scroll::-webkit-scrollbar-thumb:hover {
+            background: #00ff41;
+        }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.3.1",
+        "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+        "react-dom": "https://esm.sh/react-dom@18.3.1",
+        "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+        "lucide-react": "https://esm.sh/lucide-react@0.400.0?external=react,react-dom",
+        "framer-motion": "https://esm.sh/framer-motion@11?external=react,react-dom",
+        "clsx": "https://esm.sh/clsx@2.1.1",
+        "tailwind-merge": "https://esm.sh/tailwind-merge@2.3.0"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+    <div class="crt-overlay"></div>
+    <div class="scanline"></div>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel" data-type="module" data-presets="react" src="/app.js"></script>
+</body>
+</html>

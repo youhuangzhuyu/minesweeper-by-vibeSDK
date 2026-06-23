@@ -1,0 +1,9 @@
+/* Base styles already in index.html, but keeping this for potential expansion */
+body {
+  cursor: crosshair;
+}
+
+::selection {
+  background: #00ff41;
+  color: #000;
+}
